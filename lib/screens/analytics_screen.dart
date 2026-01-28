@@ -163,29 +163,6 @@ class AnalyticsScreen extends StatelessWidget {
       ),
     );
   }
-                      decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        status,
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const Icon(LucideIcons.chevronRight, color: Colors.grey),
-        ],
-      ),
-    );
-  }
 
   Widget _buildActivityItem(String title, String subtitle, Color color) {
     return Container(
