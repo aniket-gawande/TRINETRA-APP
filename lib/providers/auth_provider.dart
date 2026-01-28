@@ -62,13 +62,11 @@ class AuthProvider with ChangeNotifier {
 
   void _initializeGoogleSignIn() {
     if (!kIsWeb) {
+      // Let Firebase handle clientId - don't specify it explicitly
       _googleSignIn = GoogleSignIn(
-        clientId: '690282627556-u4nf9h7qgkjv5qa8v8t8vk8pv7j9k8l9.apps.googleusercontent.com',
         scopes: [
           'email',
           'profile',
-          'https://www.googleapis.com/auth/userinfo.profile',
-          'https://www.googleapis.com/auth/userinfo.email',
         ],
       );
     }
