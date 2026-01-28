@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math';
+import '../components/bottom_nav_bar.dart'; // Import added
 
 class PlannerScreen extends StatefulWidget {
   const PlannerScreen({super.key});
@@ -12,11 +13,9 @@ class PlannerScreen extends StatefulWidget {
 }
 
 class _PlannerScreenState extends State<PlannerScreen> {
-  // Center roughly on India or your preferred default
   final LatLng _defaultCenter = const LatLng(20.5937, 78.9629);
   late final MapController _mapController;
   
-  // Path waypoints
   List<LatLng> _pathPoints = [];
   LatLng? _userLocation;
   bool _isLoadingLocation = true;
@@ -28,10 +27,28 @@ class _PlannerScreenState extends State<PlannerScreen> {
     _mapController = MapController();
     _fetchUserLocation();
   }
+  
+  // Navigation handler
+  void _onNavTapped(int index) {
+    if (index == 1) return; // Already on Planner
+    switch (index) {
+      case 0:
+        Navigator.of(context).pushReplacementNamed('/');
+        break;
+      case 2:
+        Navigator.of(context).pushReplacementNamed('/dashboard');
+        break;
+      case 3:
+        Navigator.of(context).pushReplacementNamed('/analytics');
+        break;
+      case 4:
+        Navigator.of(context).pushReplacementNamed('/profile');
+        break;
+    }
+  }
 
   Future<void> _fetchUserLocation() async {
     try {
-      // Check location permissions
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -48,12 +65,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
         return;
       }
 
-      // Get current position
       final Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
         timeLimit: const Duration(seconds: 10),
       ).catchError((e) async {
-        // Fallback to best effort if timeout
         return await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.low,
         );
@@ -65,8 +80,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
           _isLoadingLocation = false;
           _statusMessage = 'Location fetched! Tap map to create path.';
         });
-
-        // Center map on user location
         _mapController.move(_userLocation!, 15.0);
       }
     } catch (e) {
@@ -104,20 +117,20 @@ class _PlannerScreenState extends State<PlannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
+      // Added Bottom Navigation Bar
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 1,
+        onTabTapped: _onNavTapped,
+      ),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1e293b),
         elevation: 0,
-        leading: Container(
-          margin: const EdgeInsets.all(8),
+        leading: Padding(
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF10b981).withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Icon(
+          child: Icon(
             Icons.route_rounded,
-            color: Color(0xFF10b981),
-            size: 24,
+            color: const Color(0xFF10b981),
+            size: 28,
           ),
         ),
         title: const Column(
@@ -144,7 +157,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
       ),
       body: Stack(
         children: [
-          // Map layer
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
@@ -155,12 +167,10 @@ class _PlannerScreenState extends State<PlannerScreen> {
               },
             ),
             children: [
-              // Tile layer
               TileLayer(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 userAgentPackageName: 'com.trinetra.app',
               ),
-              // User location marker
               if (_userLocation != null)
                 MarkerLayer(
                   markers: [
@@ -188,7 +198,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
                     ),
                   ],
                 ),
-              // Path waypoint markers
               MarkerLayer(
                 markers: [
                   for (int i = 0; i < _pathPoints.length; i++)
@@ -219,7 +228,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
                     ),
                 ],
               ),
-              // Polyline for path
               if (_pathPoints.isNotEmpty)
                 PolylineLayer(
                   polylines: [
@@ -233,7 +241,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
             ],
           ),
           
-          // Loading indicator
           if (_isLoadingLocation)
             Positioned(
               top: 0,
@@ -266,7 +273,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
               ),
             ),
 
-          // Status and controls panel
           Positioned(
             bottom: 0,
             left: 0,
@@ -289,7 +295,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Status message
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -323,7 +328,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   ),
                   const SizedBox(height: 12),
                   
-                  // Path info
                   if (_pathPoints.isNotEmpty)
                     Container(
                       padding: const EdgeInsets.all(12),
@@ -373,7 +377,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
                     ),
                   const SizedBox(height: 12),
 
-                  // Action buttons
                   Row(
                     children: [
                       Expanded(
@@ -401,7 +404,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
                           onPressed: _pathPoints.isEmpty
                               ? null
                               : () {
-                                  // Save/submit path
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -441,8 +443,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
     
     double totalDistance = 0.0;
     for (int i = 0; i < _pathPoints.length - 1; i++) {
-      // Haversine formula for distance between two lat/lng points
-      const double earthRadiusKm = 6371; // Earth's radius in kilometers
+      const double earthRadiusKm = 6371; 
       
       final lat1 = _pathPoints[i].latitude * pi / 180;
       final lat2 = _pathPoints[i + 1].latitude * pi / 180;

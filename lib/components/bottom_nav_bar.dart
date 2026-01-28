@@ -37,6 +37,8 @@ class BottomNavBar extends StatelessWidget {
         selectedItemColor: const Color(0xFF10b981),
         unselectedItemColor: const Color(0xFF64748b),
         elevation: 0,
+        showSelectedLabels: true, // Ensure labels show
+        showUnselectedLabels: true,
         selectedLabelStyle: const TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w700,
@@ -48,103 +50,26 @@ class BottomNavBar extends StatelessWidget {
           letterSpacing: 0.2,
         ),
         items: [
-          BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 0 
-                    ? const Color(0xFF10b981).withValues(alpha: 0.15)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.home_rounded, 
-                size: 28,
-                color: selectedIndex == 0 
-                    ? const Color(0xFF10b981)
-                    : const Color(0xFF64748b),
-              ),
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 1 
-                    ? const Color(0xFF10b981).withValues(alpha: 0.15)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.route_rounded, 
-                size: 28,
-                color: selectedIndex == 1 
-                    ? const Color(0xFF10b981)
-                    : const Color(0xFF64748b),
-              ),
-            ),
-            label: 'Planner',
-          ),
-          BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 2 
-                    ? const Color(0xFF10b981).withValues(alpha: 0.15)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.dashboard_rounded, 
-                size: 28,
-                color: selectedIndex == 2 
-                    ? const Color(0xFF10b981)
-                    : const Color(0xFF64748b),
-              ),
-            ),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 3 
-                    ? const Color(0xFF10b981).withValues(alpha: 0.15)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.trending_up_rounded, 
-                size: 28,
-                color: selectedIndex == 3 
-                    ? const Color(0xFF10b981)
-                    : const Color(0xFF64748b),
-              ),
-            ),
-            label: 'Analytics',
-          ),
-          BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 4 
-                    ? const Color(0xFF10b981).withValues(alpha: 0.15)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.person_rounded, 
-                size: 28,
-                color: selectedIndex == 4 
-                    ? const Color(0xFF10b981)
-                    : const Color(0xFF64748b),
-              ),
-            ),
-            label: 'Profile',
-          ),
+          _buildNavItem(Icons.home_rounded, 'Home', 0),
+          _buildNavItem(Icons.route_rounded, 'Planner', 1),
+          _buildNavItem(Icons.dashboard_rounded, 'Dashboard', 2),
+          _buildNavItem(Icons.trending_up_rounded, 'Analytics', 3),
+          _buildNavItem(Icons.person_rounded, 'Profile', 4),
         ],
       ),
+    );
+  }
+
+  BottomNavigationBarItem _buildNavItem(IconData icon, String label, int index) {
+    return BottomNavigationBarItem(
+      icon: Icon(
+        icon,
+        size: 28,
+        color: selectedIndex == index
+            ? const Color(0xFF10b981)
+            : const Color(0xFF64748b),
+      ),
+      label: label,
     );
   }
 }

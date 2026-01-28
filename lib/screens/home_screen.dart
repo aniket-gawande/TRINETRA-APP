@@ -1,10 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:lucide_icons/lucide_icons.dart'; // Ensure you have this in pubspec.yaml
+import 'package:lucide_icons/lucide_icons.dart';
 import '../providers/auth_provider.dart';
+import '../components/bottom_nav_bar.dart'; // Import added
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  // Navigation handler
+  void _onNavTapped(int index) {
+    if (index == 0) return; // Already on Home
+    switch (index) {
+      case 1:
+        Navigator.of(context).pushReplacementNamed('/planner');
+        break;
+      case 2:
+        Navigator.of(context).pushReplacementNamed('/dashboard');
+        break;
+      case 3:
+        Navigator.of(context).pushReplacementNamed('/analytics');
+        break;
+      case 4:
+        Navigator.of(context).pushReplacementNamed('/profile');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +37,12 @@ class HomeScreen extends StatelessWidget {
     final user = auth.user;
 
     return Scaffold(
-      // The background logic is handled by the main theme, but we ensure it matches the dark aesthetic
       backgroundColor: const Color(0xFF020604),
+      // Added Bottom Navigation Bar
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 0,
+        onTabTapped: _onNavTapped,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -36,17 +65,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.home_rounded,
-                        color: Color(0xFF10b981),
-                        size: 32,
-                      ),
+                    const Icon(
+                      Icons.home_rounded,
+                      color: Color(0xFF10b981),
+                      size: 32,
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -128,7 +150,6 @@ class HomeScreen extends StatelessWidget {
   Widget _buildHeader(user) {
     String displayName = "PARYARAK";
     if (user != null) {
-      // Handle UserModel
       if (user.runtimeType.toString().contains('UserModel')) {
         displayName = user.displayName ?? "Farmer";
       } else if (user is String) {
@@ -190,7 +211,7 @@ class HomeScreen extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF064e3b), Color(0xFF065f46)], // Emerald darken
+          colors: [Color(0xFF064e3b), Color(0xFF065f46)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

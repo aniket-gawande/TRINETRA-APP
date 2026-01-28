@@ -1,27 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import '../components/bottom_nav_bar.dart'; // Import added
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  // Navigation handler
+  void _onNavTapped(int index) {
+    if (index == 2) return; // Already on Dashboard
+    switch (index) {
+      case 0:
+        Navigator.of(context).pushReplacementNamed('/');
+        break;
+      case 1:
+        Navigator.of(context).pushReplacementNamed('/planner');
+        break;
+      case 3:
+        Navigator.of(context).pushReplacementNamed('/analytics');
+        break;
+      case 4:
+        Navigator.of(context).pushReplacementNamed('/profile');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
+      // Added Bottom Navigation Bar
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 2,
+        onTabTapped: _onNavTapped,
+      ),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1e293b),
         elevation: 0,
-        leading: Container(
-          margin: const EdgeInsets.all(8),
+        leading: Padding(
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF10b981).withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Icon(
+          child: Icon(
             Icons.dashboard_rounded,
-            color: Color(0xFF10b981),
-            size: 24,
+            color: const Color(0xFF10b981),
+            size: 28,
           ),
         ),
         title: const Column(
