@@ -1,52 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../components/bottom_nav_bar.dart'; // Import added
 
-class AnalyticsScreen extends StatefulWidget {
+class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({super.key});
-
-  @override
-  State<AnalyticsScreen> createState() => _AnalyticsScreenState();
-}
-
-class _AnalyticsScreenState extends State<AnalyticsScreen> {
-  // Navigation handler
-  void _onNavTapped(int index) {
-    if (index == 3) return; // Already on Analytics
-    switch (index) {
-      case 0:
-        Navigator.of(context).pushReplacementNamed('/');
-        break;
-      case 1:
-        Navigator.of(context).pushReplacementNamed('/planner');
-        break;
-      case 2:
-        Navigator.of(context).pushReplacementNamed('/dashboard');
-        break;
-      case 4:
-        Navigator.of(context).pushReplacementNamed('/profile');
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
-      // Added Bottom Navigation Bar
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: 3,
-        onTabTapped: _onNavTapped,
-      ),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1e293b),
         elevation: 0,
-        leading: Padding(
+        leading: Container(
+          margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.all(8),
-          child: Icon(
+          decoration: BoxDecoration(
+            color: const Color(0xFF10b981).withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(
             Icons.trending_up_rounded,
-            color: const Color(0xFF10b981),
-            size: 28,
+            color: Color(0xFF10b981),
+            size: 24,
           ),
         ),
         title: const Column(

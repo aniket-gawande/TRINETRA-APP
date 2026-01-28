@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 import '../components/bottom_nav_bar.dart'; // Import added
 
 class DashboardScreen extends StatefulWidget {

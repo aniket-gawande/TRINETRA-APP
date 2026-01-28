@@ -78,6 +78,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 4,
+        onTabTapped: _onNavTapped,
+      ),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1e293b),
         elevation: 0,
@@ -324,10 +328,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         },
-      ),
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onTabTapped: _onNavTapped,
       ),
     );
   }
