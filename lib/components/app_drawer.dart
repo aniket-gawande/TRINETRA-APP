@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
                 if (user != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(user, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                    child: Text(user.email ?? '', style: const TextStyle(color: Colors.grey, fontSize: 12)),
                   ),
               ],
             ),
