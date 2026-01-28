@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 import '../providers/auth_provider.dart';
 import '../components/bottom_nav_bar.dart'; // Import added
 
@@ -209,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
             border: Border.all(color: const Color(0xFF334155)),
           ),
           child: Icon(
-            user != null ? Icons.person : LucideIcons.home,
+            user != null ? Icons.person : Icons.home,
             color: const Color(0xFF10b981),
             size: 24,
           ),
@@ -259,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const Spacer(),
-              const Icon(LucideIcons.wifi, color: Colors.white70, size: 20),
+              const Icon(Icons.wifi, color: Colors.white70, size: 20),
             ],
           ),
           const SizedBox(height: 20),
@@ -318,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: _buildActionCard(
             context,
             title: "Map Planner",
-            icon: LucideIcons.map,
+            icon: Icons.map,
             color: const Color(0xFF3b82f6),
             onTap: () => user != null 
                 ? Navigator.pushNamed(context, '/planner')
@@ -330,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: _buildActionCard(
             context,
             title: "Analytics",
-            icon: LucideIcons.barChart2,
+            icon: Icons.bar_chart,
             color: const Color(0xFF8b5cf6),
             onTap: () => user != null 
                 ? Navigator.pushNamed(context, '/dashboard')
@@ -388,10 +387,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildFeatureGrid() {
     final features = [
-      {'icon': LucideIcons.thermometer, 'label': 'Soil Health', 'value': 'Good'},
-      {'icon': LucideIcons.droplets, 'label': 'Moisture', 'value': '45%'},
-      {'icon': LucideIcons.battery, 'label': 'Battery', 'value': '87%'},
-      {'icon': LucideIcons.sun, 'label': 'Temp', 'value': '24°C'},
+      {'icon': Icons.water_drop, 'label': 'Soil Health', 'value': 'Good'},
+      {'icon': Icons.opacity, 'label': 'Moisture', 'value': '45%'},
+      {'icon': Icons.battery_full, 'label': 'Battery', 'value': '87%'},
+      {'icon': Icons.sunny, 'label': 'Temp', 'value': '24°C'},
     ];
 
     return GridView.builder(
