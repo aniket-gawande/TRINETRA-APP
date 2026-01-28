@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'components/app_drawer.dart';
+import 'components/bottom_nav_bar.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/planner_screen.dart';
@@ -65,17 +66,56 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Wrapper to include the AppDrawer on every page
-class AppScaffold extends StatelessWidget {
+// Wrapper to include the AppDrawer and Bottom Nav on every page
+class AppScaffold extends StatefulWidget {
   final Widget child;
   const AppScaffold({super.key, required this.child});
+
+  @override
+  State<AppScaffold> createState() => _AppScaffoldState();
+}
+
+class _AppScaffoldState extends State<AppScaffold> {
+  int _selectedIndex = 0;
+
+  void _onNavTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    
+    // Navigate to the corresponding route
+    switch (index) {
+      case 0:
+        Navigator.of(context).pushReplacementNamed('/');
+        break;
+      case 1:
+        Navigator.of(context).pushReplacementNamed('/planner');
+        break;
+      case 2:
+        Navigator.of(context).pushReplacementNamed('/dashboard');
+        break;
+      case 3:
+        Navigator.of(context).pushReplacementNamed('/analytics');
+        break;
+      case 4:
+        // Profile - for now, show a snackbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profile page coming soon')),
+        );
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("🚜 PARYARAK")),
       drawer: const AppDrawer(),
-      body: child,
+      body: widget.child,
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: _selectedIndex,
+        onTabTapped: _onNavTapped,
+      ),
     );
   }
 }
