@@ -8,21 +8,50 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1e293b),
+        elevation: 0,
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: const Color(0xFF10b981).withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(
+            Icons.dashboard_rounded,
+            color: Color(0xFF10b981),
+            size: 24,
+          ),
+        ),
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Dashboard',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            Text(
+              'Field monitoring',
+              style: TextStyle(
+                color: Color(0xFF86efac),
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+        centerTitle: false,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Dashboard",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 24),
               _buildStatCards(),
               const SizedBox(height: 24),
               const Text(
@@ -61,18 +90,38 @@ class DashboardScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF1e293b).withValues(alpha: 0.6),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFF334155)),
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1e40af), Color(0xFF1e3a8a)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: const Color(0xFF3b82f6).withValues(alpha: 0.3),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF3b82f6).withValues(alpha: 0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(LucideIcons.activity, color: Color(0xFF3b82f6), size: 24),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.landscape_rounded, color: Color(0xFF3b82f6), size: 24),
+                ),
                 const SizedBox(height: 12),
-                const Text("Fields", style: TextStyle(color: Colors.grey, fontSize: 12)),
+                const Text("Fields", style: TextStyle(color: Colors.white70, fontSize: 12)),
                 const SizedBox(height: 8),
-                const Text("3", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                const Text("3", style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -82,18 +131,38 @@ class DashboardScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF1e293b).withValues(alpha: 0.6),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFF334155)),
+              gradient: const LinearGradient(
+                colors: [Color(0xFF059669), Color(0xFF047857)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: const Color(0xFF10b981).withValues(alpha: 0.3),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF10b981).withValues(alpha: 0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(LucideIcons.barChart2, color: Color(0xFF10b981), size: 24),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.science_rounded, color: Color(0xFF10b981), size: 24),
+                ),
                 const SizedBox(height: 12),
-                const Text("Soil pH", style: TextStyle(color: Colors.grey, fontSize: 12)),
+                const Text("Soil pH", style: TextStyle(color: Colors.white70, fontSize: 12)),
                 const SizedBox(height: 8),
-                const Text("6.8", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                const Text("6.8", style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
               ],
             ),
           ),

@@ -104,6 +104,44 @@ class _PlannerScreenState extends State<PlannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1e293b),
+        elevation: 0,
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: const Color(0xFF10b981).withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Icon(
+            Icons.route_rounded,
+            color: Color(0xFF10b981),
+            size: 24,
+          ),
+        ),
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Path Planner',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            Text(
+              'Plan rover routes',
+              style: TextStyle(
+                color: Color(0xFF86efac),
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+        centerTitle: false,
+      ),
       body: Stack(
         children: [
           // Map layer

@@ -12,7 +12,20 @@
           "package_name": "com.example.trinetra"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "923853633921-umqle35np9f8k4mifaidvnhnjn5g0sju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trinetra",
+            "certificate_hash": "417bfc7d9df3fc2603d47de0a7426dd9a1140433"
+          }
+        },
+        {
+          "client_id": "923853633921-oc5brrdh8h3vqumga9ff4dirupaps1oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDK0NJsUZ6m3S3yAzbVpF8b3QT08hCDXMo"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923853633921-oc5brrdh8h3vqumga9ff4dirupaps1oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
