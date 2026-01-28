@@ -38,11 +38,13 @@ class _PlannerScreenState extends State<PlannerScreen> {
       }
       
       if (permission == LocationPermission.deniedForever) {
-        setState(() {
-          _isLoadingLocation = false;
-          _statusMessage = 'Location permission denied. Using default location.';
-          _userLocation = _defaultCenter;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoadingLocation = false;
+            _statusMessage = 'Location permission denied. Using default location.';
+            _userLocation = _defaultCenter;
+          });
+        }
         return;
       }
 
@@ -57,20 +59,24 @@ class _PlannerScreenState extends State<PlannerScreen> {
         );
       });
 
-      setState(() {
-        _userLocation = LatLng(position.latitude, position.longitude);
-        _isLoadingLocation = false;
-        _statusMessage = 'Location fetched! Tap map to create path.';
-      });
+      if (mounted) {
+        setState(() {
+          _userLocation = LatLng(position.latitude, position.longitude);
+          _isLoadingLocation = false;
+          _statusMessage = 'Location fetched! Tap map to create path.';
+        });
 
-      // Center map on user location
-      _mapController.move(_userLocation!, 15.0);
+        // Center map on user location
+        _mapController.move(_userLocation!, 15.0);
+      }
     } catch (e) {
-      setState(() {
-        _isLoadingLocation = false;
-        _statusMessage = 'Error fetching location: ${e.toString().split('\n').first}';
-        _userLocation = _defaultCenter;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoadingLocation = false;
+          _statusMessage = 'Error fetching location: ${e.toString().split('\n').first}';
+          _userLocation = _defaultCenter;
+        });
+      }
     }
   }
 
