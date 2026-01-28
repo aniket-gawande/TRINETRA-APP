@@ -38,6 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1e293b),
+        elevation: 0,
+        title: const Text(
+          '🚜 PARYARAK',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: false,
+      ),
       // Added Bottom Navigation Bar
       bottomNavigationBar: BottomNavBar(
         selectedIndex: 0,

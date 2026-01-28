@@ -24,10 +24,11 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: SafeArea(
         top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: Container(
+          height: 72,
+          padding: const EdgeInsets.only(bottom: 8, top: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildNavItem(Icons.home_rounded, 'Home', 0),
               _buildNavItem(Icons.route_rounded, 'Planner', 1),
@@ -43,27 +44,51 @@ class BottomNavBar extends StatelessWidget {
 
   Widget _buildNavItem(IconData icon, String label, int index) {
     final isSelected = selectedIndex == index;
-    return GestureDetector(
-      onTap: () => onTabTapped(index),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            size: 28,
-            color: isSelected ? const Color(0xFF10b981) : const Color(0xFF64748b),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => onTabTapped(index),
+        splashColor: const Color(0xFF10b981).withValues(alpha: 0.3),
+        highlightColor: const Color(0xFF10b981).withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? const Color(0xFF10b981).withValues(alpha: 0.15)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  icon,
+                  size: 28,
+                  color: isSelected
+                      ? const Color(0xFF10b981)
+                      : const Color(0xFF64748b),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                  color: isSelected
+                      ? const Color(0xFF10b981)
+                      : const Color(0xFF64748b),
+                  letterSpacing: isSelected ? 0.3 : 0,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              color: isSelected ? const Color(0xFF10b981) : const Color(0xFF64748b),
-              letterSpacing: isSelected ? 0.3 : 0.2,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

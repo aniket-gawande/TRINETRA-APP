@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'providers/auth_provider.dart';
-import 'components/app_drawer.dart';
-import 'components/bottom_nav_bar.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/planner_screen.dart';
@@ -59,64 +57,13 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => const AppScaffold(child: HomeScreen()),
+          '/': (context) => const HomeScreen(),
           '/login': (context) => const LoginScreen(),
-          '/planner': (context) => const ProtectedRoute(child: AppScaffold(child: PlannerScreen())),
-          '/dashboard': (context) => const ProtectedRoute(child: AppScaffold(child: DashboardScreen())),
-          '/analytics': (context) => const ProtectedRoute(child: AppScaffold(child: AnalyticsScreen())),
+          '/planner': (context) => const ProtectedRoute(child: PlannerScreen()),
+          '/dashboard': (context) => const ProtectedRoute(child: DashboardScreen()),
+          '/analytics': (context) => const ProtectedRoute(child: AnalyticsScreen()),
           '/profile': (context) => const ProtectedRoute(child: ProfileScreen()),
         },
-      ),
-    );
-  }
-}
-
-// Wrapper to include the AppDrawer and Bottom Nav on every page
-class AppScaffold extends StatefulWidget {
-  final Widget child;
-  const AppScaffold({super.key, required this.child});
-
-  @override
-  State<AppScaffold> createState() => _AppScaffoldState();
-}
-
-class _AppScaffoldState extends State<AppScaffold> {
-  int _selectedIndex = 0;
-
-  void _onNavTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    
-    // Navigate to the corresponding route
-    switch (index) {
-      case 0:
-        Navigator.of(context).pushReplacementNamed('/');
-        break;
-      case 1:
-        Navigator.of(context).pushReplacementNamed('/planner');
-        break;
-      case 2:
-        Navigator.of(context).pushReplacementNamed('/dashboard');
-        break;
-      case 3:
-        Navigator.of(context).pushReplacementNamed('/analytics');
-        break;
-      case 4:
-        Navigator.of(context).pushReplacementNamed('/profile');
-        break;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("🚜 PARYARAK")),
-      drawer: const AppDrawer(),
-      body: widget.child,
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onTabTapped: _onNavTapped,
       ),
     );
   }
