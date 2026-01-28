@@ -38,70 +38,25 @@ class BottomNavBar extends StatelessWidget {
           fontSize: 12,
           fontWeight: FontWeight.w500,
         ),
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 0
-                    ? const Color(0xFF10b981).withValues(alpha: 0.1)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.home_rounded, size: 24),
-            ),
+            icon: Icon(Icons.home_rounded),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 1
-                    ? const Color(0xFF10b981).withValues(alpha: 0.1)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.route_rounded, size: 24),
-            ),
+            icon: Icon(Icons.route_rounded),
             label: 'Planner',
           ),
           BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 2
-                    ? const Color(0xFF10b981).withValues(alpha: 0.1)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.dashboard_rounded, size: 24),
-            ),
+            icon: Icon(Icons.dashboard_rounded),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 3
-                    ? const Color(0xFF10b981).withValues(alpha: 0.1)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.analytics_rounded, size: 24),
-            ),
+            icon: Icon(Icons.analytics_rounded),
             label: 'Analytics',
           ),
           BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: selectedIndex == 4
-                    ? const Color(0xFF10b981).withValues(alpha: 0.1)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.person_rounded, size: 24),
-            ),
+            icon: Icon(Icons.person_rounded),
             label: 'Profile',
           ),
         ],
