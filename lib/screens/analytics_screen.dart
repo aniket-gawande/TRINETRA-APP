@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import '../components/bottom_nav_bar.dart';
 
-class AnalyticsScreen extends StatelessWidget {
+class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});
+
+  @override
+  State<AnalyticsScreen> createState() => _AnalyticsScreenState();
+}
+
+class _AnalyticsScreenState extends State<AnalyticsScreen> {
+  void _onNavTapped(int index) {
+    if (index == 3) return; // Already on Analytics
+    switch (index) {
+      case 0:
+        Navigator.of(context).pushReplacementNamed('/');
+        break;
+      case 1:
+        Navigator.of(context).pushReplacementNamed('/planner');
+        break;
+      case 2:
+        Navigator.of(context).pushReplacementNamed('/dashboard');
+        break;
+      case 4:
+        Navigator.of(context).pushReplacementNamed('/profile');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 3,
+        onTabTapped: _onNavTapped,
+      ),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1e293b),
         elevation: 0,
