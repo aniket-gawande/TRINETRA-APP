@@ -24,9 +24,8 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: SafeArea(
         top: false,
-        child: Container(
-          height: 72,
-          padding: const EdgeInsets.only(bottom: 8, top: 8),
+        child: SizedBox(
+          height: 64,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -50,16 +49,16 @@ class BottomNavBar extends StatelessWidget {
         onTap: () => onTabTapped(index),
         splashColor: const Color(0xFF10b981).withValues(alpha: 0.3),
         highlightColor: const Color(0xFF10b981).withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   color: isSelected
                       ? const Color(0xFF10b981).withValues(alpha: 0.15)
@@ -68,23 +67,25 @@ class BottomNavBar extends StatelessWidget {
                 ),
                 child: Icon(
                   icon,
-                  size: 28,
+                  size: 24,
                   color: isSelected
                       ? const Color(0xFF10b981)
                       : const Color(0xFF64748b),
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 2),
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 9,
                   fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   color: isSelected
                       ? const Color(0xFF10b981)
                       : const Color(0xFF64748b),
                   letterSpacing: isSelected ? 0.3 : 0,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
