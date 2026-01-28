@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'components/app_drawer.dart';
-// You will create these screens next
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/planner_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/analytics_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +57,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => const AppScaffold(child: HomeScreen()),
           '/login': (context) => const LoginScreen(),
           '/planner': (context) => const ProtectedRoute(child: AppScaffold(child: PlannerScreen())),
-          // Add Dashboard screen here similarly
+          '/dashboard': (context) => const ProtectedRoute(child: AppScaffold(child: DashboardScreen())),
+          '/analytics': (context) => const ProtectedRoute(child: AppScaffold(child: AnalyticsScreen())),
         },
       ),
     );

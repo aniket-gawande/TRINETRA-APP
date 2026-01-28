@@ -35,11 +35,28 @@ class AppDrawer extends StatelessWidget {
               ],
             ),
           ),
-          _buildNavItem(context, 'Home', '/'),
+          ListTile(
+            leading: const Icon(Icons.home, color: Color(0xFF10b981)),
+            title: const Text('Home', style: TextStyle(color: Colors.white)),
+            onTap: () => Navigator.pushReplacementNamed(context, '/'),
+          ),
           if (user != null) ...[
-            _buildNavItem(context, 'Map Planner', '/planner'),
-            _buildNavItem(context, 'Dashboard', '/dashboard'),
-            const Divider(color: Colors.grey),
+            ListTile(
+              leading: const Icon(Icons.map, color: Color(0xFF3b82f6)),
+              title: const Text('Map Planner', style: TextStyle(color: Colors.white)),
+              onTap: () => Navigator.pushReplacementNamed(context, '/planner'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.dashboard, color: Color(0xFF8b5cf6)),
+              title: const Text('Dashboard', style: TextStyle(color: Colors.white)),
+              onTap: () => Navigator.pushReplacementNamed(context, '/dashboard'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.analytics, color: Color(0xFFf59e0b)),
+              title: const Text('Analytics', style: TextStyle(color: Colors.white)),
+              onTap: () => Navigator.pushReplacementNamed(context, '/analytics'),
+            ),
+            const Divider(color: Color(0xFF334155)),
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Logout', style: TextStyle(color: Colors.red)),
@@ -49,22 +66,23 @@ class AppDrawer extends StatelessWidget {
               },
             ),
           ] else
-            _buildNavItem(context, 'Login', '/login'),
+            ListTile(
+              leading: const Icon(Icons.login, color: Color(0xFF10b981)),
+              title: const Text('Login', style: TextStyle(color: Colors.white)),
+              onTap: () => Navigator.pushReplacementNamed(context, '/login'),
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildNavItem(BuildContext context, String title, String route) {
-    return ListTile(
-      title: Text(title, style: const TextStyle(color: Colors.white)),
-      onTap: () => Navigator.pushReplacementNamed(context, route),
-    );
-  }
-
   String _getUserEmail(dynamic user) {
     if (user == null) return '';
-    // Handle both Firebase User objects and String (mock auth)
+    // Handle UserModel from auth_provider
+    if (user.runtimeType.toString().contains('UserModel')) {
+      return user.email ?? '';
+    }
+    // Handle Firebase User objects
     if (user is String) return user;
     if (user.runtimeType.toString().contains('User')) {
       return user.email ?? '';

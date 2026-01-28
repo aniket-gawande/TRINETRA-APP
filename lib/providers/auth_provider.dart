@@ -1,6 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; // ignore: unnecessary_import
 
+class UserModel {
+  final String email;
+  final String displayName;
+  final String? photoURL;
+
+  UserModel({
+    required this.email,
+    required this.displayName,
+    this.photoURL,
+  });
+}
+
 class AuthProvider with ChangeNotifier {
   dynamic _user;
   bool _isLoading = true;
@@ -54,14 +66,35 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     try {
+      // Test credentials
+      if (email == 'test@gmail.com' && password == '1234567') {
+        await Future.delayed(const Duration(seconds: 1));
+        _user = UserModel(
+          email: email,
+          displayName: 'Test User',
+          photoURL: null,
+        );
+        notifyListeners();
+        return;
+      }
+
       if (kIsWeb) {
         // Mock login for web
         await Future.delayed(const Duration(seconds: 1));
-        _user = email;
+        _user = UserModel(
+          email: email,
+          displayName: email.split('@')[0].toUpperCase(),
+          photoURL: null,
+        );
         notifyListeners();
       } else {
         // Firebase login for mobile
-        _user = email; // Placeholder - would use Firebase on real device
+        await Future.delayed(const Duration(seconds: 1));
+        _user = UserModel(
+          email: email,
+          displayName: email.split('@')[0].toUpperCase(),
+          photoURL: null,
+        );
         notifyListeners();
       }
     } catch (e) {
@@ -83,11 +116,20 @@ class AuthProvider with ChangeNotifier {
       if (kIsWeb) {
         // Mock signup for web
         await Future.delayed(const Duration(seconds: 1));
-        _user = email;
+        _user = UserModel(
+          email: email,
+          displayName: email.split('@')[0].toUpperCase(),
+          photoURL: null,
+        );
         notifyListeners();
       } else {
         // Firebase signup for mobile
-        _user = email; // Placeholder - would use Firebase on real device
+        await Future.delayed(const Duration(seconds: 1));
+        _user = UserModel(
+          email: email,
+          displayName: email.split('@')[0].toUpperCase(),
+          photoURL: null,
+        );
         notifyListeners();
       }
     } catch (e) {
