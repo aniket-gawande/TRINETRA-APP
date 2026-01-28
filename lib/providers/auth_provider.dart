@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthProvider with ChangeNotifier {
-  User? _user;
-  bool _isLoading = true;
+  String? _userEmail;
+  bool _isLoading = false;
 
-  User? get user => _user;
+  String? get user => _userEmail;
   bool get isLoading => _isLoading;
 
   AuthProvider() {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      _user = user;
-      _isLoading = false;
-      notifyListeners();
-    });
+    // Initialize without Firebase for now
   }
 
   Future<void> login(String email, String password) async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    _isLoading = true;
+    notifyListeners();
+    
+    // Mock login - in real app, this would call Firebase or your backend
+    await Future.delayed(const Duration(seconds: 1));
+    _userEmail = email;
+    
+    _isLoading = false;
+    notifyListeners();
   }
 
   Future<void> logout() async {
-    await FirebaseAuth.instance.signOut();
+    _userEmail = null;
+    notifyListeners();
   }
 }
