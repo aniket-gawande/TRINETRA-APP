@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb;
+import 'package:flutter/material.dart' show TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -44,39 +45,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDummy',
-    appId: '1:123456789:web:abc123def456',
-    messagingSenderId: '123456789',
-    projectId: 'trinetra-demo',
-    authDomain: 'trinetra-demo.firebaseapp.com',
-    databaseURL: 'https://trinetra-demo.firebaseio.com',
-    storageBucket: 'trinetra-demo.appspot.com',
+    apiKey: 'AIzaSyDK0NJsUZ6m3S3yAzbVpF8b3QT08hCDXMo',
+    appId: '1:923853633921:web:a7506d530dccc832a31080',
+    messagingSenderId: '923853633921',
+    projectId: 'trinetra-8eabf',
+    authDomain: 'trinetra-8eabf.firebaseapp.com',
+    databaseURL: 'https://trinetra-8eabf.firebaseio.com',
+    storageBucket: 'trinetra-8eabf.firebasestorage.app',
     measurementId: 'G-ABC123DEF456',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDummy',
-    appId: '1:123456789:android:abc123def456',
-    messagingSenderId: '123456789',
-    projectId: 'trinetra-demo',
-    storageBucket: 'trinetra-demo.appspot.com',
+    apiKey: 'AIzaSyDK0NJsUZ6m3S3yAzbVpF8b3QT08hCDXMo',
+    appId: '1:923853633921:android:a7506d530dccc832a31080',
+    messagingSenderId: '923853633921',
+    projectId: 'trinetra-8eabf',
+    storageBucket: 'trinetra-8eabf.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDummy',
-    appId: '1:123456789:ios:abc123def456',
-    messagingSenderId: '123456789',
-    projectId: 'trinetra-demo',
-    storageBucket: 'trinetra-demo.appspot.com',
+    apiKey: 'AIzaSyDK0NJsUZ6m3S3yAzbVpF8b3QT08hCDXMo',
+    appId: '1:923853633921:ios:a7506d530dccc832a31080',
+    messagingSenderId: '923853633921',
+    projectId: 'trinetra-8eabf',
+    storageBucket: 'trinetra-8eabf.firebasestorage.app',
     iosBundleId: 'com.example.trinetra',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDummy',
-    appId: '1:123456789:macos:abc123def456',
-    messagingSenderId: '123456789',
-    projectId: 'trinetra-demo',
-    storageBucket: 'trinetra-demo.appspot.com',
+    apiKey: 'AIzaSyDK0NJsUZ6m3S3yAzbVpF8b3QT08hCDXMo',
+    appId: '1:923853633921:macos:a7506d530dccc832a31080',
+    messagingSenderId: '923853633921',
+    projectId: 'trinetra-8eabf',
+    storageBucket: 'trinetra-8eabf.firebasestorage.app',
     iosBundleId: 'com.example.trinetra',
   );
 }
