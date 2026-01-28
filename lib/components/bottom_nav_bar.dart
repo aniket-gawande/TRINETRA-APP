@@ -57,7 +57,13 @@ class BottomNavBar extends StatelessWidget {
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.home_rounded, size: 26),
+              child: Icon(
+                Icons.home_rounded, 
+                size: 28,
+                color: selectedIndex == 0 
+                    ? const Color(0xFF10b981)
+                    : const Color(0xFF64748b),
+              ),
             ),
             label: 'Home',
           ),
@@ -70,7 +76,13 @@ class BottomNavBar extends StatelessWidget {
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.route_rounded, size: 26),
+              child: Icon(
+                Icons.route_rounded, 
+                size: 28,
+                color: selectedIndex == 1 
+                    ? const Color(0xFF10b981)
+                    : const Color(0xFF64748b),
+              ),
             ),
             label: 'Planner',
           ),
@@ -83,7 +95,13 @@ class BottomNavBar extends StatelessWidget {
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.dashboard_rounded, size: 26),
+              child: Icon(
+                Icons.dashboard_rounded, 
+                size: 28,
+                color: selectedIndex == 2 
+                    ? const Color(0xFF10b981)
+                    : const Color(0xFF64748b),
+              ),
             ),
             label: 'Dashboard',
           ),
@@ -96,7 +114,13 @@ class BottomNavBar extends StatelessWidget {
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.trending_up_rounded, size: 26),
+              child: Icon(
+                Icons.trending_up_rounded, 
+                size: 28,
+                color: selectedIndex == 3 
+                    ? const Color(0xFF10b981)
+                    : const Color(0xFF64748b),
+              ),
             ),
             label: 'Analytics',
           ),
@@ -109,7 +133,13 @@ class BottomNavBar extends StatelessWidget {
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.person_rounded, size: 26),
+              child: Icon(
+                Icons.person_rounded, 
+                size: 28,
+                color: selectedIndex == 4 
+                    ? const Color(0xFF10b981)
+                    : const Color(0xFF64748b),
+              ),
             ),
             label: 'Profile',
           ),

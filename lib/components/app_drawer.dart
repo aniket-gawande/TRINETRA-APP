@@ -36,30 +36,30 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.home, color: Color(0xFF10b981)),
-            title: const Text('Home', style: TextStyle(color: Colors.white)),
+            leading: Icon(Icons.home_rounded, color: const Color(0xFF10b981), size: 28),
+            title: const Text('Home', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
             onTap: () => Navigator.pushReplacementNamed(context, '/'),
           ),
           if (user != null) ...[
             ListTile(
-              leading: const Icon(Icons.map, color: Color(0xFF3b82f6)),
-              title: const Text('Map Planner', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.route_rounded, color: const Color(0xFF3b82f6), size: 28),
+              title: const Text('Map Planner', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
               onTap: () => Navigator.pushReplacementNamed(context, '/planner'),
             ),
             ListTile(
-              leading: const Icon(Icons.dashboard, color: Color(0xFF8b5cf6)),
-              title: const Text('Dashboard', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.dashboard_rounded, color: const Color(0xFF8b5cf6), size: 28),
+              title: const Text('Dashboard', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
               onTap: () => Navigator.pushReplacementNamed(context, '/dashboard'),
             ),
             ListTile(
-              leading: const Icon(Icons.analytics, color: Color(0xFFf59e0b)),
-              title: const Text('Analytics', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.trending_up_rounded, color: const Color(0xFFf59e0b), size: 28),
+              title: const Text('Analytics', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
               onTap: () => Navigator.pushReplacementNamed(context, '/analytics'),
             ),
             const Divider(color: Color(0xFF334155)),
             ListTile(
-              leading: const Icon(Icons.logout, color: Colors.red),
-              title: const Text('Logout', style: TextStyle(color: Colors.red)),
+              leading: Icon(Icons.logout_rounded, color: Colors.red, size: 28),
+              title: const Text('Logout', style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.w600)),
               onTap: () {
                 auth.logout();
                 Navigator.pushReplacementNamed(context, '/login');
@@ -67,8 +67,8 @@ class AppDrawer extends StatelessWidget {
             ),
           ] else
             ListTile(
-              leading: const Icon(Icons.login, color: Color(0xFF10b981)),
-              title: const Text('Login', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.login_rounded, color: const Color(0xFF10b981), size: 28),
+              title: const Text('Login', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
               onTap: () => Navigator.pushReplacementNamed(context, '/login'),
             ),
         ],

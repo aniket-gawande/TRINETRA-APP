@@ -204,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                       // Email Card
                       _buildInfoCard(
-                        icon: Icons.email_outlined,
+                        icon: Icons.mail,
                         label: 'Email Address',
                         value: user.email,
                       ),
@@ -212,7 +212,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                       // User ID Card
                       _buildInfoCard(
-                        icon: Icons.badge_outlined,
+                        icon: Icons.verified_user,
                         label: 'User ID',
                         value: user.id,
                       ),
@@ -220,7 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                       // Member Since Card
                       _buildInfoCard(
-                        icon: Icons.calendar_today_outlined,
+                        icon: Icons.calendar_month,
                         label: 'Member Since',
                         value: user.createdAt != null
                             ? '${user.createdAt!.day}/${user.createdAt!.month}/${user.createdAt!.year}'
@@ -256,7 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 8),
 
                       _buildSettingTile(
-                        icon: Icons.security_outlined,
+                        icon: Icons.security,
                         title: 'Privacy & Security',
                         subtitle: 'Manage your privacy settings',
                         onTap: () {
@@ -271,7 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 8),
 
                       _buildSettingTile(
-                        icon: Icons.notifications_outlined,
+                        icon: Icons.notifications,
                         title: 'Notifications',
                         subtitle: 'Manage notification preferences',
                         onTap: () {
@@ -286,7 +286,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 8),
 
                       _buildSettingTile(
-                        icon: Icons.help_outline,
+                        icon: Icons.help,
                         title: 'Help & Support',
                         subtitle: 'Get help and contact support',
                         onTap: () {
@@ -340,19 +340,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1e293b),
-        border: Border.all(color: const Color(0xFF334155)),
-        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+          colors: [
+            const Color(0xFF1e293b).withValues(alpha: 0.8),
+            const Color(0xFF0f172a).withValues(alpha: 0.6),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        border: Border.all(
+          color: const Color(0xFF10b981).withValues(alpha: 0.3),
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF10b981).withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFF10b981).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF10b981).withValues(alpha: 0.25),
+                  const Color(0xFF10b981).withValues(alpha: 0.1),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border.all(
+                color: const Color(0xFF10b981).withValues(alpha: 0.4),
+              ),
+              borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(icon, color: const Color(0xFF10b981)),
+            child: Icon(
+              icon, 
+              color: const Color(0xFF10b981),
+              size: 28,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -362,20 +392,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text(
                   label,
                   style: const TextStyle(
-                    color: Colors.grey,
+                    color: Color(0xFF94a3b8),
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
+                    letterSpacing: 0.3,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 6),
                 Text(
                   value,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 15,
                     fontWeight: FontWeight.w600,
+                    letterSpacing: -0.2,
                   ),
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
               ],
             ),
@@ -395,23 +428,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
+        splashColor: const Color(0xFF10b981).withValues(alpha: 0.2),
+        highlightColor: const Color(0xFF10b981).withValues(alpha: 0.15),
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color(0xFF1e293b),
-            border: Border.all(color: const Color(0xFF334155)),
-            borderRadius: BorderRadius.circular(12),
+            gradient: LinearGradient(
+              colors: [
+                const Color(0xFF1e293b).withValues(alpha: 0.8),
+                const Color(0xFF0f172a).withValues(alpha: 0.6),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            border: Border.all(
+              color: const Color(0xFF10b981).withValues(alpha: 0.3),
+            ),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF10b981).withValues(alpha: 0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF10b981).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color(0xFF10b981).withValues(alpha: 0.25),
+                      const Color(0xFF10b981).withValues(alpha: 0.1),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  border: Border.all(
+                    color: const Color(0xFF10b981).withValues(alpha: 0.4),
+                  ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(icon, color: const Color(0xFF10b981)),
+                child: Icon(
+                  icon, 
+                  color: const Color(0xFF10b981),
+                  size: 28,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -423,24 +488,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -0.2,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
                       style: const TextStyle(
-                        color: Colors.grey,
+                        color: Color(0xFF94a3b8),
                         fontSize: 13,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
                 ),
               ),
-              const Icon(
-                Icons.arrow_forward_ios,
-                color: Color(0xFF64748b),
-                size: 16,
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF10b981).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Color(0xFF10b981),
+                  size: 18,
+                ),
               ),
             ],
           ),
