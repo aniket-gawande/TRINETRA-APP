@@ -327,7 +327,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
-        onItemTapped: _onNavTapped,
+        onTabTapped: _onNavTapped,
       ),
     );
   }
