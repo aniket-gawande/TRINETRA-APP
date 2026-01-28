@@ -9,6 +9,7 @@ import 'screens/login_screen.dart';
 import 'screens/planner_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/analytics_screen.dart';
+import 'screens/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           '/planner': (context) => const ProtectedRoute(child: AppScaffold(child: PlannerScreen())),
           '/dashboard': (context) => const ProtectedRoute(child: AppScaffold(child: DashboardScreen())),
           '/analytics': (context) => const ProtectedRoute(child: AppScaffold(child: AnalyticsScreen())),
+          '/profile': (context) => const ProtectedRoute(child: ProfileScreen()),
         },
       ),
     );
@@ -98,10 +100,7 @@ class _AppScaffoldState extends State<AppScaffold> {
         Navigator.of(context).pushReplacementNamed('/analytics');
         break;
       case 4:
-        // Profile - for now, show a snackbar
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Profile page coming soon')),
-        );
+        Navigator.of(context).pushReplacementNamed('/profile');
         break;
     }
   }
