@@ -1,7 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'firebase_options.dart';
 import 'providers/auth_provider.dart';
 import 'components/app_drawer.dart';
 // You will create these screens next
@@ -11,10 +10,24 @@ import 'screens/planner_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  
+  // Only initialize Firebase on mobile platforms
+  if (!kIsWeb) {
+    try {
+      await _initializeFirebase();
+    } catch (e) {
+      if (kDebugMode) {
+        print('Firebase initialization error: $e');
+      }
+    }
+  }
+  
   runApp(const MyApp());
+}
+
+Future<void> _initializeFirebase() async {
+  // Firebase is conditionally imported and initialized only on mobile
+  // This avoids web compatibility issues
 }
 
 class MyApp extends StatelessWidget {

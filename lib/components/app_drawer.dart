@@ -27,7 +27,10 @@ class AppDrawer extends StatelessWidget {
                 if (user != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(user.email ?? '', style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                    child: Text(
+                      _getUserEmail(user),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
                   ),
               ],
             ),
@@ -57,5 +60,15 @@ class AppDrawer extends StatelessWidget {
       title: Text(title, style: const TextStyle(color: Colors.white)),
       onTap: () => Navigator.pushReplacementNamed(context, route),
     );
+  }
+
+  String _getUserEmail(dynamic user) {
+    if (user == null) return '';
+    // Handle both Firebase User objects and String (mock auth)
+    if (user is String) return user;
+    if (user.runtimeType.toString().contains('User')) {
+      return user.email ?? '';
+    }
+    return user.toString();
   }
 }
