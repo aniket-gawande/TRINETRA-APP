@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Paryarak',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xFF020604),
           appBarTheme: const AppBarTheme(

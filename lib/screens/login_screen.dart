@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
 
-                // Google Sign-in Button
+                // Google Sign-in Button - IMPROVED STYLING
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -93,9 +93,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: const Color(0xFF020604),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      elevation: 2,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 4,
+                      shadowColor: Colors.white.withValues(alpha: 0.3),
                     ),
                     child: _isLoading
                         ? const SizedBox(
@@ -110,10 +113,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                "🔵  Sign in with Google",
+                                "🔵",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(width: 12),
+                              Text(
+                                "Sign in with Google",
                                 style: TextStyle(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 0.3,
                                 ),
                               ),
                             ],
@@ -135,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // Email Field
+                // Email Field - IMPROVED STYLING
                 TextField(
                   controller: _emailCtrl,
                   enabled: !_isLoading,
@@ -145,17 +154,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     labelStyle: const TextStyle(color: Colors.grey),
                     hintText: "test@gmail.com",
                     hintStyle: const TextStyle(color: Color(0xFF64748b)),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF334155)),
+                    filled: true,
+                    fillColor: const Color(0xFF1e293b).withValues(alpha: 0.5),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF334155)),
                     ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF10b981)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF10b981), width: 2),
                     ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF334155)),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),
                 ),
                 const SizedBox(height: 15),
 
-                // Password Field
+                // Password Field - IMPROVED STYLING
                 TextField(
                   controller: _passCtrl,
                   obscureText: true,
@@ -166,17 +184,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     labelStyle: const TextStyle(color: Colors.grey),
                     hintText: "1234567",
                     hintStyle: const TextStyle(color: Color(0xFF64748b)),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF334155)),
+                    filled: true,
+                    fillColor: const Color(0xFF1e293b).withValues(alpha: 0.5),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF334155)),
                     ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF10b981)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF10b981), width: 2),
                     ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF334155)),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),
                 ),
                 const SizedBox(height: 20),
 
-                // Sign In Button
+                // Sign In Button - IMPROVED STYLING
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -184,8 +211,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF10b981),
                       disabledBackgroundColor: const Color(0xFF6b7280),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 4,
+                      shadowColor: const Color(0xFF10b981).withValues(alpha: 0.4),
                     ),
                     child: _isLoading
                         ? const SizedBox(
@@ -201,7 +232,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.5,
                             ),
                           ),
                   ),
@@ -214,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1e293b),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: const Color(0xFF334155)),
                   ),
                   child: const Column(

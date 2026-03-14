@@ -631,16 +631,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1.8,
-        crossAxisSpacing: 14,
-        mainAxisSpacing: 14,
+        childAspectRatio: 2.0, // MUCH HIGHER - fixes overflow completely
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
       ),
       itemCount: features.length,
       itemBuilder: (context, index) {
         final feature = features[index];
         final color = feature['color'] as Color;
         return Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12), // Optimized padding
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -656,9 +656,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               width: 1.5,
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
@@ -669,36 +667,36 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 child: Icon(
                   feature['icon'] as IconData,
                   color: color,
-                  size: 24,
+                  size: 20,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    feature['label'] as String,
-                    style: const TextStyle(
-                      color: Color(0xFF94a3b8),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.2,
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      feature['label'] as String,
+                      style: const TextStyle(
+                        color: Color(0xFF94a3b8),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.3,
+                      ),
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    feature['value'] as String,
-                    style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      letterSpacing: -0.3,
+                    const SizedBox(height: 2),
+                    Text(
+                      feature['value'] as String,
+                      style: TextStyle(
+                        color: color,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        letterSpacing: -0.5,
+                      ),
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

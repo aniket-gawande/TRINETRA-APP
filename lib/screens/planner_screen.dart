@@ -3,7 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math';
-import '../components/bottom_nav_bar.dart'; // Import added
+import '../components/bottom_nav_bar.dart';
 
 class PlannerScreen extends StatefulWidget {
   const PlannerScreen({super.key});
@@ -117,7 +117,6 @@ class _PlannerScreenState extends State<PlannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF020604),
-      // Added Bottom Navigation Bar
       bottomNavigationBar: BottomNavBar(
         selectedIndex: 1,
         onTabTapped: _onNavTapped,
@@ -127,10 +126,16 @@ class _PlannerScreenState extends State<PlannerScreen> {
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.all(8),
-          child: Icon(
-            Icons.route_rounded,
-            color: const Color(0xFF10b981),
-            size: 28,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF10b981).withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Icon(
+              Icons.route_rounded,
+              color: Color(0xFF10b981),
+              size: 28,
+            ),
           ),
         ),
         title: const Column(
@@ -281,7 +286,7 @@ class _PlannerScreenState extends State<PlannerScreen> {
               decoration: BoxDecoration(
                 color: const Color(0xFF1e293b),
                 borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
+                  top: Radius.circular(24),
                 ),
                 border: Border(
                   top: BorderSide(
@@ -290,28 +295,28 @@ class _PlannerScreenState extends State<PlannerScreen> {
                   ),
                 ),
               ),
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
                       color: const Color(0xFF0f172a).withValues(alpha: 0.5),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: const Color(0xFF334155)),
                     ),
                     child: Row(
                       children: [
                         Icon(
                           _pathPoints.isEmpty
-                              ? Icons.info_outline
-                              : Icons.check_circle_outline,
+                              ? Icons.info_outline_rounded
+                              : Icons.check_circle_outline_rounded,
                           color: _pathPoints.isEmpty
                               ? const Color(0xFF94a3b8)
                               : const Color(0xFF10b981),
-                          size: 18,
+                          size: 20,
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -326,42 +331,59 @@ class _PlannerScreenState extends State<PlannerScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
                   
                   if (_pathPoints.isNotEmpty)
                     Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0f172a).withValues(alpha: 0.5),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: const Color(0xFF334155)),
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFF3b82f6).withValues(alpha: 0.15),
+                            const Color(0xFF3b82f6).withValues(alpha: 0.05),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: const Color(0xFF3b82f6).withValues(alpha: 0.3),
+                        ),
                       ),
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.route,
-                            color: Color(0xFF3b82f6),
-                            size: 18,
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF3b82f6).withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.route_rounded,
+                              color: Color(0xFF3b82f6),
+                              size: 18,
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
                               'Path: ${_pathPoints.length} waypoints',
                               style: const TextStyle(
-                                color: Colors.white70,
+                                color: Colors.white,
                                 fontSize: 13,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
+                              horizontal: 10,
+                              vertical: 5,
                             ),
                             decoration: BoxDecoration(
                               color: const Color(0xFF3b82f6)
                                   .withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               '${_calculatePathDistance().toStringAsFixed(2)} km',
@@ -375,8 +397,9 @@ class _PlannerScreenState extends State<PlannerScreen> {
                         ],
                       ),
                     ),
-                  const SizedBox(height: 12),
+                  if (_pathPoints.isNotEmpty) const SizedBox(height: 14),
 
+                  // IMPROVED BUTTON STYLING
                   Row(
                     children: [
                       Expanded(
@@ -384,18 +407,26 @@ class _PlannerScreenState extends State<PlannerScreen> {
                           onPressed: _clearPath,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF1f2937),
+                            foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
-                              vertical: 12,
+                              vertical: 14,
                             ),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(14),
                               side: const BorderSide(
                                 color: Color(0xFF334155),
                               ),
                             ),
+                            elevation: 2,
                           ),
-                          icon: const Icon(Icons.clear, size: 18),
-                          label: const Text('Clear Path'),
+                          icon: const Icon(Icons.clear_rounded, size: 20),
+                          label: const Text(
+                            'Clear Path',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -410,21 +441,35 @@ class _PlannerScreenState extends State<PlannerScreen> {
                                         'Path saved with ${_pathPoints.length} waypoints',
                                       ),
                                       backgroundColor: const Color(0xFF10b981),
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
                                     ),
                                   );
                                 },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF10b981),
-                            disabledBackgroundColor: Colors.grey,
+                            foregroundColor: Colors.white,
+                            disabledBackgroundColor: const Color(0xFF6b7280),
+                            disabledForegroundColor: Colors.white60,
                             padding: const EdgeInsets.symmetric(
-                              vertical: 12,
+                              vertical: 14,
                             ),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            elevation: 4,
+                            shadowColor: const Color(0xFF10b981).withValues(alpha: 0.4),
+                          ),
+                          icon: const Icon(Icons.save_rounded, size: 20),
+                          label: const Text(
+                            'Save Path',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14,
                             ),
                           ),
-                          icon: const Icon(Icons.save, size: 18),
-                          label: const Text('Save Path'),
                         ),
                       ),
                     ],

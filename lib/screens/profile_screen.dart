@@ -45,22 +45,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF1e293b),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
         title: const Text(
           'Logout',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         content: const Text(
           'Are you sure you want to logout?',
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(color: Color(0xFF94a3b8)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Color(0xFF94a3b8)),
+            ),
           ),
-          TextButton(
+          ElevatedButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Logout', style: TextStyle(color: Color(0xFFef4444))),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFef4444),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: const Text(
+              'Logout',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       ),
@@ -94,9 +122,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout, color: Color(0xFFef4444)),
-            onPressed: _handleLogout,
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: IconButton(
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFef4444).withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.logout_rounded,
+                  color: Color(0xFFef4444),
+                  size: 20,
+                ),
+              ),
+              onPressed: _handleLogout,
+            ),
           ),
         ],
       ),
@@ -116,12 +158,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                // Profile Header
+                // Profile Header - COMPLETELY REDESIGNED
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: 30),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
+                  padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
@@ -129,69 +171,117 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Color(0xFF0f172a),
                       ],
                     ),
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Color(0xFF334155),
-                        width: 1,
-                      ),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF10b981).withValues(alpha: 0.1),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
                   ),
                   child: Column(
                     children: [
-                      // Avatar
+                      // Avatar - FULLY ROUNDED
                       Container(
-                        width: 100,
-                        height: 100,
+                        width: 120,
+                        height: 120,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: const Color(0xFF10b981),
-                          border: Border.all(
-                            color: const Color(0xFF10b981),
-                            width: 3,
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              const Color(0xFF10b981),
+                              const Color(0xFF059669),
+                            ],
                           ),
-                          image: user.photoURL != null
-                              ? DecorationImage(
-                                  image: NetworkImage(user.photoURL!),
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF10b981).withValues(alpha: 0.4),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
-                        child: user.photoURL == null
-                            ? const Icon(
-                                Icons.person,
-                                size: 50,
-                                color: Colors.white,
+                        child: user.photoURL != null
+                            ? ClipOval(
+                                child: Image.network(
+                                  user.photoURL!,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Icon(
+                                      Icons.person_rounded,
+                                      size: 60,
+                                      color: Colors.white,
+                                    );
+                                  },
+                                ),
                               )
-                            : null,
+                            : const Icon(
+                                Icons.person_rounded,
+                                size: 60,
+                                color: Colors.white,
+                              ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
 
                       // User Name
                       Text(
                         user.displayName,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 24,
+                          fontSize: 26,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
 
-                      // User Email
-                      Text(
-                        user.email,
-                        style: const TextStyle(
-                          color: Color(0xFF94a3b8),
-                          fontSize: 14,
+                      // User Email with rounded container
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF10b981).withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color(0xFF10b981).withValues(alpha: 0.3),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.verified_rounded,
+                              color: Color(0xFF10b981),
+                              size: 16,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              user.email,
+                              style: const TextStyle(
+                                color: Color(0xFF86efac),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                // Profile Information Cards
+                // Profile Information Cards - COMPLETELY REDESIGNED
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -200,127 +290,128 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'Account Information',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 16),
 
-                      // Email Card
-                      _buildInfoCard(
-                        icon: Icons.mail,
+                      // Email Card - FULLY ROUNDED
+                      _buildModernInfoCard(
+                        icon: Icons.mail_rounded,
+                        iconColor: const Color(0xFF3b82f6),
                         label: 'Email Address',
                         value: user.email,
                       ),
                       const SizedBox(height: 12),
 
-                      // User ID Card
-                      _buildInfoCard(
-                        icon: Icons.verified_user,
+                      // User ID Card - FULLY ROUNDED
+                      _buildModernInfoCard(
+                        icon: Icons.fingerprint_rounded,
+                        iconColor: const Color(0xFF8b5cf6),
                         label: 'User ID',
-                        value: user.id,
+                        value: user.id.length > 20 
+                            ? '${user.id.substring(0, 20)}...'
+                            : user.id,
                       ),
                       const SizedBox(height: 12),
 
-                      // Member Since Card
-                      _buildInfoCard(
-                        icon: Icons.calendar_month,
+                      // Member Since Card - FULLY ROUNDED
+                      _buildModernInfoCard(
+                        icon: Icons.calendar_month_rounded,
+                        iconColor: const Color(0xFF10b981),
                         label: 'Member Since',
                         value: user.createdAt != null
-                            ? '${user.createdAt!.day}/${user.createdAt!.month}/${user.createdAt!.year}'
-                            : 'N/A',
+                            ? '${_getMonthName(user.createdAt!.month)} ${user.createdAt!.day}, ${user.createdAt!.year}'
+                            : 'Recently',
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 32),
 
                       // Account Settings Section
                       const Text(
                         'Account Settings',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: -0.5,
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 16),
 
-                      // Settings Options
-                      _buildSettingTile(
-                        icon: Icons.person_outline,
+                      // Settings Options - FULLY ROUNDED
+                      _buildModernSettingTile(
+                        icon: Icons.person_outline_rounded,
+                        iconColor: const Color(0xFF3b82f6),
                         title: 'Edit Profile',
                         subtitle: 'Update your profile information',
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Edit profile feature coming soon!'),
-                              backgroundColor: Color(0xFF10b981),
-                            ),
-                          );
+                          _showComingSoonSnackbar('Edit profile feature');
                         },
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
 
-                      _buildSettingTile(
-                        icon: Icons.security,
+                      _buildModernSettingTile(
+                        icon: Icons.security_rounded,
+                        iconColor: const Color(0xFF8b5cf6),
                         title: 'Privacy & Security',
                         subtitle: 'Manage your privacy settings',
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Privacy settings coming soon!'),
-                              backgroundColor: Color(0xFF10b981),
-                            ),
-                          );
+                          _showComingSoonSnackbar('Privacy settings');
                         },
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
 
-                      _buildSettingTile(
-                        icon: Icons.notifications,
+                      _buildModernSettingTile(
+                        icon: Icons.notifications_rounded,
+                        iconColor: const Color(0xFFf59e0b),
                         title: 'Notifications',
                         subtitle: 'Manage notification preferences',
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Notification settings coming soon!'),
-                              backgroundColor: Color(0xFF10b981),
-                            ),
-                          );
+                          _showComingSoonSnackbar('Notification settings');
                         },
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
 
-                      _buildSettingTile(
-                        icon: Icons.help,
+                      _buildModernSettingTile(
+                        icon: Icons.help_rounded,
+                        iconColor: const Color(0xFF10b981),
                         title: 'Help & Support',
                         subtitle: 'Get help and contact support',
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Support page coming soon!'),
-                              backgroundColor: Color(0xFF10b981),
-                            ),
-                          );
+                          _showComingSoonSnackbar('Support page');
                         },
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 32),
 
-                      // Logout Button
+                      // Logout Button - FULLY ROUNDED
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton.icon(
                           onPressed: _handleLogout,
-                          icon: const Icon(Icons.logout),
-                          label: const Text('Logout'),
+                          icon: const Icon(Icons.logout_rounded, size: 20),
+                          label: const Text(
+                            'Logout',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFef4444),
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(20),
                             ),
+                            elevation: 4,
+                            shadowColor: const Color(0xFFef4444).withValues(alpha: 0.4),
                           ),
                         ),
                       ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -332,55 +423,87 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildInfoCard({
+  String _getMonthName(int month) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return months[month - 1];
+  }
+
+  void _showComingSoonSnackbar(String feature) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$feature coming soon!'),
+        backgroundColor: const Color(0xFF10b981),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        margin: const EdgeInsets.all(16),
+      ),
+    );
+  }
+
+  Widget _buildModernInfoCard({
     required IconData icon,
+    required Color iconColor,
     required String label,
     required String value,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color(0xFF1e293b).withValues(alpha: 0.8),
-            const Color(0xFF0f172a).withValues(alpha: 0.6),
+            iconColor.withValues(alpha: 0.15),
+            iconColor.withValues(alpha: 0.05),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: const Color(0xFF10b981).withValues(alpha: 0.3),
+          color: iconColor.withValues(alpha: 0.3),
+          width: 1.5,
         ),
-        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF10b981).withValues(alpha: 0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: iconColor.withValues(alpha: 0.15),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Row(
         children: [
+          // Icon container - FULLY ROUNDED
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFF10b981).withValues(alpha: 0.25),
-                  const Color(0xFF10b981).withValues(alpha: 0.1),
+                  iconColor.withValues(alpha: 0.3),
+                  iconColor.withValues(alpha: 0.15),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
+              borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: const Color(0xFF10b981).withValues(alpha: 0.4),
+                color: iconColor.withValues(alpha: 0.4),
               ),
-              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: iconColor.withValues(alpha: 0.2),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Icon(
-              icon, 
-              color: const Color(0xFF10b981),
+              icon,
+              color: iconColor,
               size: 28,
             ),
           ),
@@ -391,11 +514,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
-                    color: Color(0xFF94a3b8),
+                  style: TextStyle(
+                    color: iconColor.withValues(alpha: 0.8),
                     fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0.3,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -403,9 +526,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   value,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: -0.2,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: -0.3,
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -418,8 +541,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildSettingTile({
+  Widget _buildModernSettingTile({
     required IconData icon,
+    required Color iconColor,
     required String title,
     required String subtitle,
     required VoidCallback onTap,
@@ -428,11 +552,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        splashColor: const Color(0xFF10b981).withValues(alpha: 0.2),
-        highlightColor: const Color(0xFF10b981).withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(24),
+        splashColor: iconColor.withValues(alpha: 0.2),
+        highlightColor: iconColor.withValues(alpha: 0.1),
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -442,40 +566,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
+            borderRadius: BorderRadius.circular(24),
             border: Border.all(
-              color: const Color(0xFF10b981).withValues(alpha: 0.3),
+              color: iconColor.withValues(alpha: 0.2),
+              width: 1.5,
             ),
-            borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF10b981).withValues(alpha: 0.1),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
+                color: iconColor.withValues(alpha: 0.1),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
           child: Row(
             children: [
+              // Icon container - FULLY ROUNDED
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      const Color(0xFF10b981).withValues(alpha: 0.25),
-                      const Color(0xFF10b981).withValues(alpha: 0.1),
+                      iconColor.withValues(alpha: 0.25),
+                      iconColor.withValues(alpha: 0.1),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
+                  borderRadius: BorderRadius.circular(18),
                   border: Border.all(
-                    color: const Color(0xFF10b981).withValues(alpha: 0.4),
+                    color: iconColor.withValues(alpha: 0.4),
                   ),
-                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
-                  icon, 
-                  color: const Color(0xFF10b981),
-                  size: 28,
+                  icon,
+                  color: iconColor,
+                  size: 26,
                 ),
               ),
               const SizedBox(width: 16),
@@ -488,7 +614,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.bold,
                         letterSpacing: -0.2,
                       ),
                     ),
@@ -504,17 +630,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
+              // Arrow button - FULLY ROUNDED
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF10b981).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  color: iconColor.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(14),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_forward_ios_rounded,
-                  color: Color(0xFF10b981),
-                  size: 18,
+                  color: iconColor,
+                  size: 16,
                 ),
               ),
             ],
